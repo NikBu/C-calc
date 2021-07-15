@@ -20,6 +20,127 @@ struct Leksema //Структура, описывающая любое числ�
 	double value; //Значение (только для чисел). У операций значение всегда "0"
 };
 
+bool Maths(stack <Leksema>& Stack_n, stack <Leksema>& Stack_o, Leksema& item) { //Математическая функция, которая производит расчеты
+	//Функция имеет тип bool, чтобы при возникновении какой-либо ошибки возвращать "false"
+	double a, b, c;
+	a = Stack_n.top().value; //Берется верхнее число из стека с числами
+	Stack_n.pop(); //Удаляется верхнее число из стека с числами
+	switch (Stack_o.top().type) {  //Проверяется тип верхней операции из стека с операциями
+	case '+': //Если тип верхней операции из стека с операциями сложение
+		b = Stack_n.top().value;
+		Stack_n.pop();
+		c = a + b;
+		item.type = '0';
+		item.value = c;
+		Stack_n.push(item); //Результат операции кладется обратно в стек с числами
+		Stack_o.pop();
+		break;
+
+	case '-':
+		b = Stack_n.top().value;
+		Stack_n.pop();
+		c = b - a;
+		item.type = '0';
+		item.value = c;
+		Stack_n.push(item);
+		Stack_o.pop();
+		break;
+
+	case '^':
+		b = Stack_n.top().value;
+		Stack_n.pop();
+		c = pow(b, a);
+		item.type = '0';
+		item.value = c;
+		Stack_n.push(item);
+		Stack_o.pop();
+		break;
+
+	case '*':
+		b = Stack_n.top().value;
+		Stack_n.pop();
+		c = a * b;
+		item.type = '0';
+		item.value = c;
+		Stack_n.push(item);
+		Stack_o.pop();
+		break;
+
+	case '/':
+		b = Stack_n.top().value;
+		if (a == 0) {
+			cerr << "\nНа 0 делить нельзя!\n";
+			return false;
+		}
+		else {
+			Stack_n.pop();
+			c = (b / a);
+			item.type = '0';
+			item.value = c;
+			Stack_n.push(item);
+			Stack_o.pop();
+			break;
+		}
+
+	case 's':
+		c = sin(a);
+		item.type = '0';
+		item.value = c;
+		Stack_n.push(item);
+		Stack_o.pop();
+		break;
+
+	case 'c':
+		c = cos(a);
+		item.type = '0';
+		item.value = c;
+		Stack_n.push(item);
+		Stack_o.pop();
+		break;
+
+	case 't':
+		if (cos(a) == 0) {
+			cerr << "\nНеверный аргумент для тангенса!\n";
+			return false;
+		}
+		else {
+			c = tan(a);
+			item.type = '0';
+			item.value = c;
+			Stack_n.push(item);
+			Stack_o.pop();
+			break;
+		}
+
+	case 'g':
+		if (sin(a) == 0) {
+			cerr << "\nНеверный аргумент для котангенса!\n";
+			return false;
+		}
+		else {
+			c = ctg(a);
+			item.type = '0';
+			item.value = c;
+			Stack_n.push(item);
+			Stack_o.pop();
+			break;
+		}
+
+	case 'e':
+		c = exp(a);
+		item.type = '0';
+		item.value = c;
+		Stack_n.push(item);
+		Stack_o.pop();
+		break;
+
+	default:
+		cerr << "\nОшибка!\n";
+		return false;
+		break;
+	}
+	return true;
+}
 
 
 int getRang(char Ch) { //Функция возвращает приоритет операции: "1" для сложения и вычитания, "2" для умножения и деления и т.д.
