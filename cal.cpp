@@ -6,7 +6,7 @@
 #include <stack>
 using namespace std;
 
-const double Pi = 3,1415926535; //Объявляем значение числа Пи
+const double Pi = 3.1415926535; //Объявляем значение числа Пи
 
 double ctg(double x) { //Функция для расчета котангенса
 	double a = cos(x);
