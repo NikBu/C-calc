@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include <Windows.h>
 #include <iostream>
 #include <iomanip>
@@ -231,7 +231,6 @@ int main()
 			item.value = Pi;
 			Stack_n.push(item); //Число кладется в стек с числами
 			flag = 0;
-			cin.ignore();
 			continue;
 			}
 		}
